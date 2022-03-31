@@ -3,6 +3,7 @@ extends CanvasLayer
 const gunt1_type: String = "GunT1"
 
 const _GunT1: = preload("res://Scenes/Towers/GunT1.tscn")
+const _RangeVisualizer: = preload("res://Scenes/Supports/RangeVisualizer.tscn")
 
 const invalid_color: Color = Color("ff0000")
 const valid_color: Color = Color("00ff00")
@@ -35,7 +36,7 @@ func _on_BtnGunT1_pressed() -> void:
 
 func _on_BtnPlayPause_pressed() -> void:
 	var is_paused = get_tree().paused
-	if not is_paused and build_mode:
+	if build_mode:
 		cancel_build()
 	get_tree().paused = not is_paused
 
@@ -94,10 +95,14 @@ func start_build_mode(tower: String) -> void:
 	tower_type = tower
 	build_mode = true
 	
+	var range_preview = _RangeVisualizer.instance()
+	range_preview.radius = GameData.towers_data[tower].range
+	
 	var preview = _GunT1.instance()
 	preview.set_name("Preview")
 	preview.position = calculate_preview_position()
 	preview.modulate = invalid_color
+	preview.add_child(range_preview)
 	add_child(preview)
 
 func cancel_build() -> void:

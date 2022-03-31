@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Assets/Tileset/terrainTiles_default.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Entities/treeGreen_large.png" type="Texture" id=2]
@@ -13,7 +13,6 @@
 [ext_resource path="res://Assets/UI/forward.png" type="Texture" id=11]
 [ext_resource path="res://Assets/UI/button1.png" type="Texture" id=12]
 [ext_resource path="res://Assets/UI/button2.png" type="Texture" id=13]
-[ext_resource path="res://Scenes/Tanks/TankT1.tscn" type="PackedScene" id=14]
 
 [sub_resource type="TileSet" id=1]
 0/name = "terrainTiles_default.png 0"
@@ -121,10 +120,6 @@ tile_data = PoolIntArray( 13, 2, 0, 17, 1, 0, 65539, 1, 0, 65544, 1, 0, 65546, 0
 
 [node name="Path" type="Path2D" parent="."]
 curve = SubResource( 3 )
-
-[node name="TankT1" parent="Path" instance=ExtResource( 14 )]
-position = Vector2( -33, 609 )
-rotation = 0.0548181
 
 [node name="UI" type="CanvasLayer" parent="."]
 pause_mode = 2
