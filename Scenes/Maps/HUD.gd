@@ -1,0 +1,105 @@
+extends CanvasLayer
+
+const gunt1_type: String = "GunT1"
+
+const _GunT1: = preload("res://Scenes/Towers/GunT1.tscn")
+
+const invalid_color: Color = Color("ff0000")
+const valid_color: Color = Color("00ff00")
+
+onready var map: = get_parent()
+onready var entities_tile: = map.get_node("Entities")
+
+var build_mode: bool = false
+var preview_position: Vector2 = Vector2.ZERO
+var tower_type: String = ""
+
+# -------------------- CALLBACKS --------------------
+
+func _process(delta: float) -> void:
+	if build_mode:
+		update_preview()
+
+func _input(event: InputEvent) -> void:
+	if build_mode:
+		handle_build_input(event)
+		
+func _draw() -> void:
+	if build_mode:
+		draw_range_preview()
+
+# -------------------- SIGNALS --------------------
+
+func _on_BtnGunT1_pressed() -> void:
+	start_build_mode(gunt1_type)
+
+func _on_BtnPlayPause_pressed() -> void:
+	var is_paused = get_tree().paused
+	if not is_paused and build_mode:
+		cancel_build()
+	get_tree().paused = not is_paused
+
+func _on_BtnSpeedUp_pressed() -> void:
+	if Engine.time_scale == 1.0:
+		Engine.time_scale = 2.0
+	else:
+		Engine.time_scale = 1.0
+
+# -------------------- BUILD --------------------
+
+func get_tower_scene() -> PackedScene:
+	match tower_type:
+		gunt1_type:
+			return _GunT1
+	return null
+
+func draw_range_preview() -> void:
+	pass
+
+func handle_build_input(event: InputEvent) -> void:
+	if event.is_action_released("ui_accept"):
+		place_build()
+	elif event.is_action_released("ui_cancel"):
+		cancel_build()
+
+func update_preview() -> void:
+	var preview = get_node("Preview")
+	preview_position = calculate_preview_position()
+	var is_position_valid = is_position_valid()
+	
+	if is_position_valid && preview.modulate == invalid_color:
+		preview.modulate = valid_color
+	elif not is_position_valid && preview.modulate == valid_color:
+		preview.modulate = invalid_color
+	
+	preview.position = preview_position
+
+func place_build() -> void:
+	if is_position_valid():
+		map.build_tower(get_tower_scene(), calculate_preview_position())
+	cancel_build()
+
+func is_position_valid() -> bool:
+	var tile_pos = entities_tile.world_to_map(preview_position)
+	if tile_pos.x < 3:
+		return false
+	return entities_tile.get_cellv(tile_pos) == -1
+
+func calculate_preview_position() -> Vector2:
+	var mouse_position = map.get_global_mouse_position()
+	var tile_position = entities_tile.world_to_map(mouse_position)
+	return entities_tile.map_to_world(tile_position)
+
+func start_build_mode(tower: String) -> void:
+	tower_type = tower
+	build_mode = true
+	
+	var preview = _GunT1.instance()
+	preview.set_name("Preview")
+	preview.position = calculate_preview_position()
+	preview.modulate = invalid_color
+	add_child(preview)
+
+func cancel_build() -> void:
+	get_node("Preview").queue_free()
+	build_mode = false
