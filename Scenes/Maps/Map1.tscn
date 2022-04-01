@@ -184,7 +184,7 @@ custom_fonts/font = SubResource( 4 )
 text = "9999"
 
 [node name="BuildBar" type="VBoxContainer" parent="UI/HUD/InformationPanel/VBox"]
-margin_top = 620.0
+margin_top = 600.0
 margin_right = 150.0
 margin_bottom = 720.0
 rect_min_size = Vector2( 150, 0 )

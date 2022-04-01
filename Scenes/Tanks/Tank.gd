@@ -1,10 +1,9 @@
 extends PathFollow2D
 
-signal base_hit(damage)
+signal base_hit()
 signal die()
 
 export var speed: int = 150
-export var damage: int = 20
 
 # ---------- CALLBACKS ----------
 
@@ -16,7 +15,7 @@ func _physics_process(delta: float) -> void:
 
 func check_position() -> void:
 	if get_unit_offset() == 1:
-		emit_signal("base_hit", damage)
+		emit_signal("base_hit")
 		emit_signal("die")
 		queue_free()
 

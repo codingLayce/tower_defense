@@ -10,6 +10,7 @@ const valid_color: Color = Color("00ff00")
 
 onready var map: = get_parent()
 onready var entities_tile: = map.get_node("Entities")
+onready var life_lbl: Label = get_node("HUD/InformationPanel/VBox/LifeBar/Life")
 
 var build_mode: bool = false
 var preview_position: Vector2 = Vector2.ZERO
@@ -31,11 +32,19 @@ func _draw() -> void:
 
 # -------------------- SIGNALS --------------------
 
+func on_health_changed(health: int) -> void:
+	life_lbl.text = str(health)
+
 func _on_BtnGunT1_pressed() -> void:
 	start_build_mode(gunt1_type)
 
 func _on_BtnPlayPause_pressed() -> void:
 	var is_paused = get_tree().paused
+	
+	if not is_paused and map.state.current_wave == 0:
+		map.state.next_wave()
+		return
+	
 	if build_mode:
 		cancel_build()
 	get_tree().paused = not is_paused
