@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Assets/Tileset/terrainTiles_default.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Entities/treeGreen_large.png" type="Texture" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://Assets/Fonts/Kenney Future Narrow.ttf" type="DynamicFontData" id=15]
 [ext_resource path="res://Assets/UI/dollar.png" type="Texture" id=16]
 [ext_resource path="res://Resources/Fonts/font_48.tres" type="DynamicFont" id=17]
+[ext_resource path="res://Scenes/Supports/ShakingCamera.gd" type="Script" id=18]
 
 [sub_resource type="TileSet" id=1]
 0/name = "terrainTiles_default.png 0"
@@ -244,6 +245,16 @@ toggle_mode = true
 texture_normal = ExtResource( 12 )
 texture_pressed = ExtResource( 13 )
 
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2( 640, 360 )
+current = true
+script = ExtResource( 18 )
+
+[node name="Timer" type="Timer" parent="Camera2D"]
+
+[node name="Tween" type="Tween" parent="Camera2D"]
+
 [connection signal="pressed" from="UI/HUD/InformationPanel/VBox/BuildBar/BtnGunT1" to="UI" method="_on_BtnGunT1_pressed"]
 [connection signal="pressed" from="UI/HUD/ControlBar/BtnPlayPause" to="UI" method="_on_BtnPlayPause_pressed"]
 [connection signal="pressed" from="UI/HUD/ControlBar/BtnSpeedUp" to="UI" method="_on_BtnSpeedUp_pressed"]
+[connection signal="timeout" from="Camera2D/Timer" to="Camera2D" method="_on_Timer_timeout"]
