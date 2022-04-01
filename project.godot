@@ -54,6 +54,11 @@ ui_cancel={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="enemies"
+2d_physics/layer_2="towers"
+
 [physics]
 
 common/enable_pause_aware_picking=true

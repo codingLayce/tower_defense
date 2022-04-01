@@ -22,7 +22,7 @@ var waves = [
 var towers_data = {
 	"GunT1": {
 		"range": 200,
-		"rof": 1,
+		"rof": 0.5,
 		"damage": 20
 	}
 }
