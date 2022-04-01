@@ -36,17 +36,20 @@ func on_health_changed(health: int) -> void:
 	life_lbl.text = str(health)
 
 func _on_BtnGunT1_pressed() -> void:
+	if build_mode:
+		cancel_build()
 	start_build_mode(gunt1_type)
 
 func _on_BtnPlayPause_pressed() -> void:
 	var is_paused = get_tree().paused
 	
+	if build_mode:
+		cancel_build()
+	
 	if not is_paused and map.state.current_wave == 0:
 		map.state.next_wave()
 		return
-	
-	if build_mode:
-		cancel_build()
+		
 	get_tree().paused = not is_paused
 
 func _on_BtnSpeedUp_pressed() -> void:
@@ -115,5 +118,5 @@ func start_build_mode(tower: String) -> void:
 	add_child(preview)
 
 func cancel_build() -> void:
-	get_node("Preview").queue_free()
+	get_node("Preview").free()
 	build_mode = false
