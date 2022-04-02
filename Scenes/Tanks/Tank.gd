@@ -1,7 +1,7 @@
 extends PathFollow2D
 
 signal base_hit()
-signal die()
+signal die(reward)
 
 const _Impact: = preload("res://Scenes/Effects/Impact.tscn")
 const _Explosion: = preload("res://Scenes/Effects/Explosion.tscn")
@@ -10,8 +10,15 @@ onready var impact_pos_node: Position2D = get_node("ImpactPos")
 
 export var speed: int = 150
 export var health: int = 100
+export var reward: int = 10
+
+var tank_type: String = "TankT1"
 
 # ---------- CALLBACKS ----------
+
+func _init() -> void:
+	health = GameData.tanks_data[tank_type].health
+	speed = GameData.tanks_data[tank_type].speed
 
 func _physics_process(delta: float) -> void:
 	move(delta)
@@ -24,7 +31,7 @@ func hit(damage: int) -> void:
 	impact()
 	
 	if health <= 0:
-		die()
+		kill()
 
 func impact() -> void:
 	randomize()
@@ -41,10 +48,10 @@ func explode() -> void:
 	add_child(explosition)
 
 func on_explosition_finished() -> void:
-	emit_signal("die")
+	emit_signal("die", reward)
 	queue_free()
 
-func die() -> void:
+func kill() -> void:
 	get_node("Area2D").queue_free()
 	explode()
 
@@ -53,7 +60,8 @@ func die() -> void:
 func check_position() -> void:
 	if get_unit_offset() == 1:
 		emit_signal("base_hit")
-		die()
+		emit_signal("die", 0)
+		queue_free()
 
 func move(delta) -> void:
 	if health > 0:

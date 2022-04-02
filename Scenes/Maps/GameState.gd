@@ -21,7 +21,6 @@ var money: int = 500
 # -------------------- LISTENERS --------------------
 
 func on_tower_build_request(cost: int) -> bool:
-	print(cost)
 	if money - cost >= 0:
 		money -= cost
 		emit_signal("money_changed", money)
@@ -35,8 +34,10 @@ func on_enemy_hit_base() -> void:
 	if health == 0:
 		emit_signal("game_ended", false)
 
-func on_enemy_die() -> void:
+func on_enemy_die(reward: int) -> void:
 	enemies_left -= 1
+	money += reward
+	emit_signal("money_changed", money)
 	
 	if enemies_left == 0:
 		if current_wave == max_waves:

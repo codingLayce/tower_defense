@@ -1,5 +1,4 @@
 extends "res://Scenes/Tanks/Tank.gd"
 
-func _ready() -> void:
-	health = GameData.tanks_data["TankT1"].health
-	speed = GameData.tanks_data["TankT1"].speed
+func _init() -> void:
+	tank_type = "TankT1"
