@@ -16,6 +16,8 @@ func _ready() -> void:
 	state.connect("wave_ended", self, "_on_wave_ended")
 	state.connect("health_changed", ui_node, "on_health_changed")
 	state.connect("game_ended", self, "_on_game_ended")
+	
+	ui_node.on_wave_changed(state.current_wave, state.max_waves)
 
 # -------------------- SIGNALS --------------------
 
@@ -34,6 +36,7 @@ func _on_wave_ended() -> void:
 	state.next_wave()
 
 func _on_wave_changed(wave: int) -> void:
+	ui_node.on_wave_changed(wave, state.max_waves)
 	spawn_enemies()
 
 func spawn_enemies() -> void:
