@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Assets/Tileset/terrainTiles_default.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Entities/treeGreen_large.png" type="Texture" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://Resources/Fonts/font_48.tres" type="DynamicFont" id=17]
 [ext_resource path="res://Scenes/Supports/ShakingCamera.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Resources/Fonts/font_38.tres" type="DynamicFont" id=19]
+[ext_resource path="res://Scenes/UIScenes/TowerInformation.tscn" type="PackedScene" id=20]
 
 [sub_resource type="TileSet" id=1]
 0/name = "terrainTiles_default.png 0"
@@ -261,8 +262,19 @@ custom_fonts/font = ExtResource( 19 )
 text = "1 / 10"
 align = 1
 
+[node name="TowerInformation" parent="UI/HUD" instance=ExtResource( 20 )]
+anchor_top = 0.5
+anchor_right = 0.0
+anchor_bottom = 0.5
+margin_left = 160.0
+margin_top = -75.0
+margin_right = 360.0
+margin_bottom = 75.0
+
 [node name="Camera2D" parent="." instance=ExtResource( 18 )]
 
+[connection signal="mouse_entered" from="UI/HUD/InformationPanel/VBox/BuildBar/BtnGunT1" to="UI" method="_on_BtnGunT1_mouse_entered"]
+[connection signal="mouse_exited" from="UI/HUD/InformationPanel/VBox/BuildBar/BtnGunT1" to="UI" method="_on_BtnGunT1_mouse_exited"]
 [connection signal="pressed" from="UI/HUD/InformationPanel/VBox/BuildBar/BtnGunT1" to="UI" method="_on_BtnGunT1_pressed"]
 [connection signal="pressed" from="UI/HUD/ControlBar/BtnPlayPause" to="UI" method="_on_BtnPlayPause_pressed"]
 [connection signal="pressed" from="UI/HUD/ControlBar/BtnSpeedUp" to="UI" method="_on_BtnSpeedUp_pressed"]

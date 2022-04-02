@@ -1,0 +1,113 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Resources/Fonts/font_24.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Resources/Fonts/font_20.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Assets/UI/dollar.png" type="Texture" id=3]
+[ext_resource path="res://Assets/UI/sword.png" type="Texture" id=4]
+[ext_resource path="res://Assets/UI/bow.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/UIScenes/TowerInformation.gd" type="Script" id=6]
+
+[node name="TowerInformation" type="Popup"]
+visible = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1280.0
+margin_bottom = -720.0
+rect_min_size = Vector2( 200, 150 )
+script = ExtResource( 6 )
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.215686, 0.215686, 0.215686, 0.588235 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_bottom = -10.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 190.0
+margin_bottom = 135.0
+
+[node name="LblTowerName" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_right = 190.0
+margin_bottom = 27.0
+size_flags_vertical = 2
+custom_fonts/font = ExtResource( 1 )
+text = "tower_name"
+align = 1
+
+[node name="CostContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 31.0
+margin_right = 190.0
+margin_bottom = 63.0
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/VBoxContainer/CostContainer"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource( 3 )
+expand = true
+
+[node name="LblCost" type="Label" parent="MarginContainer/VBoxContainer/CostContainer"]
+margin_left = 36.0
+margin_top = 4.0
+margin_right = 78.0
+margin_bottom = 27.0
+custom_colors/font_color = Color( 1, 0.807843, 0, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "200"
+
+[node name="DamageContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 67.0
+margin_right = 190.0
+margin_bottom = 99.0
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/VBoxContainer/DamageContainer"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource( 4 )
+expand = true
+
+[node name="LblDamage" type="Label" parent="MarginContainer/VBoxContainer/DamageContainer"]
+margin_left = 36.0
+margin_top = 4.0
+margin_right = 64.0
+margin_bottom = 27.0
+custom_colors/font_color = Color( 1, 0.282353, 0, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "20"
+
+[node name="RofContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 103.0
+margin_right = 190.0
+margin_bottom = 135.0
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/VBoxContainer/RofContainer"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource( 5 )
+expand = true
+
+[node name="LblRof" type="Label" parent="MarginContainer/VBoxContainer/RofContainer"]
+margin_left = 36.0
+margin_top = 4.0
+margin_right = 64.0
+margin_bottom = 27.0
+custom_colors/font_color = Color( 0.0470588, 0.831373, 0.960784, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "20"

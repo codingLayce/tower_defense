@@ -13,6 +13,7 @@ onready var entities_tile: = map.get_node("Entities")
 onready var life_lbl: Label = get_node("HUD/InformationPanel/VBox/LifeBar/Life")
 onready var waves_lbl: Label = get_node("HUD/WavesContainer/Waves")
 onready var money_lbl: Label = get_node("HUD/InformationPanel/VBox/MoneyBar/Money")
+onready var tower_tooltip: Popup = get_node("HUD/TowerInformation")
 
 var build_mode: bool = false
 var preview_position: Vector2 = Vector2.ZERO
@@ -33,6 +34,14 @@ func _draw() -> void:
 		draw_range_preview()
 
 # -------------------- SIGNALS --------------------
+
+func _on_BtnGunT1_mouse_exited():
+	tower_tooltip.hide()
+
+func _on_BtnGunT1_mouse_entered():
+	var gunT1 = GameData.towers_data["GunT1"]
+	tower_tooltip.on_create("GunT1", gunT1.cost, gunT1.damage, gunT1.rof)
+	tower_tooltip.show()
 
 func on_money_changed(money: int) -> void:
 	money_lbl.text = str(money)
