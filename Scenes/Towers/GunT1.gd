@@ -1,4 +1,4 @@
 extends "res://Scenes/Towers/Tower.gd"
 
-func _ready() -> void:
+func _init() -> void:
 	tower_type = "GunT1"

@@ -7,6 +7,8 @@ signal game_ended(result)
 
 signal health_changed(health)
 
+signal money_changed(money)
+
 var current_wave: int = 0
 var max_waves: int = 2
 var enemies_left: int = 0
@@ -14,7 +16,17 @@ var wave_data: Array = []
 
 var health: int = 10
 
+var money: int = 500
+
 # -------------------- LISTENERS --------------------
+
+func on_tower_build_request(cost: int) -> bool:
+	print(cost)
+	if money - cost >= 0:
+		money -= cost
+		emit_signal("money_changed", money)
+		return true
+	return false
 
 func on_enemy_hit_base() -> void:
 	health -= 1

@@ -14,10 +14,12 @@ onready var state: _GameState = _GameState.new()
 func _ready() -> void:
 	state.connect("wave_changed", self, "_on_wave_changed")
 	state.connect("wave_ended", self, "_on_wave_ended")
-	state.connect("health_changed", ui_node, "on_health_changed")
 	state.connect("game_ended", self, "_on_game_ended")
+	state.connect("health_changed", ui_node, "on_health_changed")
+	state.connect("money_changed", ui_node, "on_money_changed")
 	
 	ui_node.on_wave_changed(state.current_wave, state.max_waves)
+	ui_node.on_money_changed(state.money)
 
 # -------------------- SIGNALS --------------------
 
@@ -51,8 +53,9 @@ func spawn_enemies() -> void:
 
 func build_tower(tower: PackedScene, position: Vector2) -> void:
 	var new_tower = tower.instance()
-	new_tower.position = position
-	new_tower.set_name(new_tower.get_name() + "_1")
-	new_tower.activated = true
-	
-	towers_container.add_child(new_tower, true)
+	if state.on_tower_build_request(new_tower.tower_cost):
+		new_tower.position = position
+		new_tower.set_name(new_tower.get_name() + "_1")
+		new_tower.activated = true
+		
+		towers_container.add_child(new_tower, true)

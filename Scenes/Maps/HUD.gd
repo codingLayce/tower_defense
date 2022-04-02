@@ -12,6 +12,7 @@ onready var map: = get_parent()
 onready var entities_tile: = map.get_node("Entities")
 onready var life_lbl: Label = get_node("HUD/InformationPanel/VBox/LifeBar/Life")
 onready var waves_lbl: Label = get_node("HUD/WavesContainer/Waves")
+onready var money_lbl: Label = get_node("HUD/InformationPanel/VBox/MoneyBar/Money")
 
 var build_mode: bool = false
 var preview_position: Vector2 = Vector2.ZERO
@@ -32,6 +33,9 @@ func _draw() -> void:
 		draw_range_preview()
 
 # -------------------- SIGNALS --------------------
+
+func on_money_changed(money: int) -> void:
+	money_lbl.text = str(money)
 
 func on_wave_changed(wave: int, max_wave: int) -> void:
 	waves_lbl.text = "%d / %d" % [wave, max_wave]

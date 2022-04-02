@@ -9,6 +9,7 @@ onready var anim_player: AnimationPlayer = get_node("AnimationPlayer")
 export var tower_type: String = "GunT1"
 export var tower_rof: float = 0
 export var tower_damage: int = 0
+export var tower_cost: int = 0
 
 var activated: bool = false
 
@@ -19,10 +20,14 @@ var ready_to_fire: bool = true
 
 # -------------------- CALLBACKS --------------------
 
+func _init() -> void:
+	var tower_data = GameData.towers_data[tower_type]
+	tower_rof = tower_data.rof
+	tower_damage = tower_data.damage
+	tower_cost = tower_data.cost
+
 func _ready() -> void:
 	collision_node.shape.radius = GameData.towers_data[tower_type].range
-	tower_rof = GameData.towers_data[tower_type].rof
-	tower_damage = GameData.towers_data[tower_type].damage
 
 func _physics_process(delta) -> void:
 	if enemies_in_range.size() != 0:
