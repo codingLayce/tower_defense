@@ -20,8 +20,8 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Tower Defense"
-run/main_scene="res://Scenes/Maps/Map1.tscn"
+config/name="Lay Tower Defense"
+run/main_scene="res://Scenes/UIScenes/MainScene.tscn"
 config/icon="res://icon.png"
 
 [autoload]

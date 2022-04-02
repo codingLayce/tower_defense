@@ -15,6 +15,7 @@ func _ready() -> void:
 	state.connect("wave_changed", self, "_on_wave_changed")
 	state.connect("wave_ended", self, "_on_wave_ended")
 	state.connect("health_changed", ui_node, "on_health_changed")
+	state.connect("game_ended", self, "_on_game_ended")
 
 # -------------------- SIGNALS --------------------
 
@@ -24,12 +25,13 @@ func on_enemy_hit_base() -> void:
 
 # -------------------- WAVE --------------------
 
-func _on_wave_ended(result: bool) -> void:
-	if result:
-		get_tree().quit()
-	else:
-		yield(get_tree().create_timer(1.0), "timeout")
-		state.next_wave()
+func _on_game_ended(result: bool) -> void:
+	# TODO : Display endgame screen
+	get_tree().change_scene("res://Scenes/UIScenes/MainScene.tscn")
+
+func _on_wave_ended() -> void:
+	yield(get_tree().create_timer(3.0), "timeout")
+	state.next_wave()
 
 func _on_wave_changed(wave: int) -> void:
 	spawn_enemies()

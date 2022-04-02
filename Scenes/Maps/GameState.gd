@@ -2,7 +2,8 @@ extends Node
 class_name GameState
 
 signal wave_changed(number)
-signal wave_ended(result)
+signal wave_ended()
+signal game_ended(result)
 
 signal health_changed(health)
 
@@ -20,14 +21,16 @@ func on_enemy_hit_base() -> void:
 	emit_signal("health_changed", health)
 	
 	if health == 0:
-		# TODO : Change this to another signal finishing the game
-		emit_signal("wave_ended", true)
+		emit_signal("game_ended", false)
 
 func on_enemy_die() -> void:
 	enemies_left -= 1
 	
 	if enemies_left == 0:
-		emit_signal("wave_ended", current_wave == max_waves)
+		if current_wave == max_waves:
+			emit_signal("game_ended", true)
+		else:
+			emit_signal("wave_ended")
 
 # -------------------- WAVES --------------------
 
