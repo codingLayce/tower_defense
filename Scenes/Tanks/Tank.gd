@@ -10,7 +10,7 @@ onready var impact_pos_node: Position2D = get_node("ImpactPos")
 
 var speed: int = 150
 var health: int = 100
-var reward: int = 10
+var reward: int = 1
 
 var tank_type: String = "TankT1"
 
@@ -19,6 +19,7 @@ var tank_type: String = "TankT1"
 func _ready() -> void:
 	health = GameData.tanks_data[tank_type].health
 	speed = GameData.tanks_data[tank_type].speed
+	reward = GameData.tanks_data[tank_type].reward
 
 func _physics_process(delta: float) -> void:
 	move(delta)

@@ -6,7 +6,6 @@ signal wave_ended()
 signal game_ended(result)
 
 signal health_changed(health)
-
 signal money_changed(money)
 
 var current_wave: int = 0
@@ -17,6 +16,11 @@ var wave_data: Array = []
 var health: int = 10
 
 var money: int = 500
+
+# -------------------- CALLBACKS --------------------
+
+func _init() -> void:
+	max_waves = GameData.easy_waves_max
 
 # -------------------- LISTENERS --------------------
 

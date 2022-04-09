@@ -10,8 +10,15 @@ var waves = [
 	[[1, 16]],
 	[[1, 13], [2, 3]],
 	[[1, 17], [2, 9]],
-	[[1, 5], [2, 14]]
+	[[1, 5], [2, 14]],
+	[[1, 7], [2, 7], [3, 3]],
+	[[1, 10], [2, 10], [3, 3]],
+	[[1, 5], [2, 10], [3, 7]],
+	[[3, 15]],
+	[[2, 51]]
 ]
+
+var easy_waves_max = 10
 
 var towers_data = {
 	"GunT1": {
@@ -25,11 +32,18 @@ var towers_data = {
 var tanks_data = {
 	"TankT1": {
 		"speed": 150,
-		"health": 100
+		"health": 100,
+		"reward": 2
 	},
 	"TankT2": {
-		"speed": 150,
-		"health": 150
+		"speed": 160,
+		"health": 150,
+		"reward": 4
+	},
+	"TankT3": {
+		"speed": 170,
+		"health": 200,
+		"reward": 6
 	}
 }
 
