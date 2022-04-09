@@ -1,5 +1,7 @@
 extends Node
 
+const BaseCooldownBetweenTanks: float = 0.6
+
 const _GameState: = preload("res://Scenes/Maps/GameState.gd")
 
 onready var towers_container: = get_node("Towers")
@@ -42,12 +44,14 @@ func _on_wave_changed(wave: int) -> void:
 	spawn_enemies()
 
 func spawn_enemies() -> void:
-	for enemy in state.wave_data:
-		var new_enemy = GameData.get_enemy_from_id(enemy[0]).instance()
-		new_enemy.connect("die", state, "on_enemy_die")
-		new_enemy.connect("base_hit", self, "on_enemy_hit_base")
-		path_node.add_child(new_enemy, true)
-		yield(get_tree().create_timer(enemy[1]), "timeout")
+	for sub_wave in state.wave_data:
+		var enemy_type = GameData.get_enemy_from_id(sub_wave[0])
+		for i in sub_wave[1]:
+			var new_enemy = enemy_type.instance()
+			new_enemy.connect("die", state, "on_enemy_die")
+			new_enemy.connect("base_hit", self, "on_enemy_hit_base")
+			path_node.add_child(new_enemy, true)
+			yield(get_tree().create_timer(BaseCooldownBetweenTanks), "timeout")
 
 # -------------------- BUILD --------------------
 

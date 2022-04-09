@@ -6,13 +6,15 @@
 extents = Vector2( 20, 19 )
 
 [node name="TankT3" type="PathFollow2D"]
-loop = false
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="Sprite" type="Sprite" parent="Area2D"]
-texture = ExtResource( 1 )
+[node name="Area2D" type="KinematicBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( -3, 0 )
 shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+
+[node name="ImpactPos" type="Position2D" parent="."]
+position = Vector2( -16, -16 )

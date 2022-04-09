@@ -10,7 +10,7 @@ signal health_changed(health)
 signal money_changed(money)
 
 var current_wave: int = 0
-var max_waves: int = 2
+var max_waves: int = 5
 var enemies_left: int = 0
 var wave_data: Array = []
 
@@ -50,8 +50,14 @@ func on_enemy_die(reward: int) -> void:
 func next_wave() -> void:
 	current_wave += 1
 	wave_data = load_wave()
-	enemies_left = wave_data.size()
+	enemies_left = count_wave_enemies()
 	emit_signal("wave_changed", current_wave)
+
+func count_wave_enemies() -> int:
+	var count = 0
+	for i in wave_data:
+		count += i[1]
+	return count
 
 func load_wave() -> Array:
 	return GameData.waves[current_wave-1]

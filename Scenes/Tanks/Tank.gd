@@ -8,15 +8,15 @@ const _Explosion: = preload("res://Scenes/Effects/Explosion.tscn")
 
 onready var impact_pos_node: Position2D = get_node("ImpactPos")
 
-export var speed: int = 150
-export var health: int = 100
-export var reward: int = 10
+var speed: int = 150
+var health: int = 100
+var reward: int = 10
 
 var tank_type: String = "TankT1"
 
 # ---------- CALLBACKS ----------
 
-func _init() -> void:
+func _ready() -> void:
 	health = GameData.tanks_data[tank_type].health
 	speed = GameData.tanks_data[tank_type].speed
 
